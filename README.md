@@ -133,7 +133,7 @@ ansible-playbook -i /root/ansible/inventories/loadbalancermaster /root/ansible/p
 Restart the loadbalancers nodes
 -----------------------------------------
 ```
-ansible -i /root/ansible/inventories/loadbalancerinfra  loadbalancermaster -m reboot
+ansible -i /root/ansible/inventories/loadbalancerinfra  loadbalancerinfra -m reboot
 ansible -i /root/ansible/inventories/loadbalancermaster loadbalancermaster -m reboot
 ```
 
