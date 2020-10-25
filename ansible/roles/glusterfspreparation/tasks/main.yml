@@ -2,17 +2,17 @@
 
 - name: Add repository CentOS OpenShift Origin
   yum_repository:
-    name: CentOS OpenShift Origin
+    name: centos-openshift-origin311
     description: CentOS OpenShift Origin
     baseurl: http://mirror.centos.org/centos/7/paas/x86_64/openshift-origin311
     gpgcheck: no
     enabled: yes
 
-- name: Add repository Gluster3.12
+- name: Add repository Gluster6
   yum_repository:
-    name: Gluster3.12
-    description: Gluster3.12
-    baseurl: http://mirror.centos.org/centos-7/7.6.1810/storage/x86_64/gluster-3.12/
+    name: Gluster6
+    description: Gluster6
+    baseurl: http://mirror.centos.org/centos-7/7/storage/x86_64/gluster-6/
     gpgcheck: no
     enabled: yes
 

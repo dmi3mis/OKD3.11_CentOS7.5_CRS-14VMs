@@ -7,14 +7,17 @@ yum update -y
 yum upgrade -y
 yum --enablerepo=extras install epel-release -y
 
-sudo pip uninstall ansible || true
-yum -y  install  pyOpenSSL python-pip python-dev sshpass python ansible # this will install ansible-2.4
-sudo mkdir -p /etc/ansible
-pip install --upgrade ansible  # this will install ansible-2.6
+#sudo pip uninstall ansible || true
+yum -y java python-passlib pyOpenSSL PyYAML python-jinja2 python-paramiko python-setuptools python2-cryptography sshpass
+
+rpm -i https://releases.ansible.com/ansible/rpm/release/epel-7-x86_64/ansible-2.5.7-1.el7.ans.noarch.rpm
+
+#sudo mkdir -p /etc/ansible
+#pip install --upgrade ansible  # this will install ansible-2.6
 
 
 
-sudo pip -H install --upgrade ansible  # this will install ansible-2.6
+#sudo pip -H install --upgrade ansible  # this will install ansible-2.6
 
 
 sudo mv /tmp/ansible.cfg /etc/ansible/

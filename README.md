@@ -30,9 +30,11 @@ Vagrant version: Installed Version: 2.2.4
 
         vagrant-share (1.1.9)
 
+        vagrant-vbguest 
+
     Vagrant box list:
 
-        centos/7  (virtualbox, 1902.01)
+        centos/7  (virtualbox, 2004)
         CentOS Linux release 7.6.1810 (Core)
 
 Infrastructure
@@ -118,7 +120,6 @@ Prepare the bastion node
 -----------------------------------------
 ```
 su root
-
 ansible-playbook -i /root/ansible/inventories/bastion /root/ansible/playbooks/bastion.yml
 ```
 
@@ -130,20 +131,30 @@ ansible-playbook -i /root/ansible/inventories/loadbalancerinfra /root/ansible/pl
 ansible-playbook -i /root/ansible/inventories/loadbalancermaster /root/ansible/playbooks/loadbalancersmaster.yaml
 ```
 Restart the loadbalancers nodes
-
+-----------------------------------------
+```
+ansible -i /root/ansible/inventories/loadbalancerinfra  loadbalancermaster -m reboot
+ansible -i /root/ansible/inventories/loadbalancermaster loadbalancermaster -m reboot
+```
 
 Prepare  Gluster
 -----------------------------------------
 ```
 ansible-playbook -i /root/ansible/inventories/ocp /root/ansible/playbooks/glusterpreparation.yml
+
 ```
 Restart the gluster nodes
+-----------------------------------------
+```
+ansible -i /root/ansible/inventories/ocp glusterfs -m reboot
+```
 
 Prepare the rest of the nodes for OKD 3.11
 -----------------------------------------
 ```
 ansible-playbook -i /root/ansible/inventories/ocp /root/ansible/playbooks/preparation.yml
 ```
+
 Check prerequisites of the nodes for OKD 3.11
 --------------------------------------------
 ```
@@ -152,6 +163,7 @@ ansible-playbook -i /root/ansible/inventories/ocp  /root/release-3.11/playbooks/
 Install OKD 3.11
 --------------------------------------------
 ```
+sed -i 's/openshift.common.ip/openshift.common.public_ip/' /root/release-3.11/roles/openshift_control_plane/templates/master.yaml.v1.j2
 ansible-playbook -i /root/ansible/inventories/ocp /root/release-3.11/playbooks/deploy_cluster.yml
 ```
 
